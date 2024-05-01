@@ -8,32 +8,36 @@ import (
 )
 
 func Multiline(input string, encode bool) (string, error) {
-	inputData, err := os.Open(input)
+	file, err := os.Open(input)
 	if err != nil {
-		fmt.Println("Error reading input file:", err)
-		return "", err
+		return "", fmt.Errorf("Error reading input file: %w", err)
 	}
-	defer inputData.Close()
+	defer file.Close()
 
-	scanner := bufio.NewScanner(inputData)
-	returnStr := ""
-	var processedLine string
-	var processErr error
+	var builder strings.Builder
+	scanner := bufio.NewScanner(file)
 
 	for scanner.Scan() {
 		line := scanner.Text()
+
+		var processedLine string
 		if encode {
-			processedLine, processErr = Encoder(line)
+			processedLine, err = Encoder(line)
 		} else {
-			processedLine, processErr = Decoder(line)
+			processedLine, err = Decoder(line)
 		}
 
-		if processErr != nil {
-			return "", processErr
+		if err != nil {
+			return "", err
 		}
 
-		returnStr += processedLine + "\n"
+		builder.WriteString(processedLine)
+		builder.WriteString("\n")
 	}
 
-	return strings.TrimRight(returnStr, "\n"), nil
+	if err := scanner.Err(); err != nil {
+		return "", err
+	}
+
+	return strings.TrimSuffix(builder.String(), "\n"), nil
 }
