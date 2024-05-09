@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Encoder/Decoder WebApp</title>
+    <link rel="stylesheet" type="text/css" href="index.css"> <!-- Link to the CSS file -->
+</head>
+<body>
+    <h1>Encoder/Decoder WebApp</h1>
+    
+    
+
+    <form method="post" action="/process">
+        <label for="inputText">Input Text:</label>
+        <textarea id="inputText" name="input" rows="4" cols="50"></textarea>
+    
+        <div class="form-row">
+            <label for="mode">Mode:</label>
+            <select name="mode">
+                <option value="decode">Decode</option>
+                <option value="encode">Encode</option>
+            </select>
+    
+            <label for="multi">Multi-line:</label>
+            <input type="checkbox" name="multi" value="true">
+    
+            <button id="process" type="submit">Process</button>
+        </div>
+    </form>
+    
+    <!-- <h2>Output:</h2>
+    <div id="output"> <!-- Output area to display the result -->
+        <!-- This will be filled with the result after processing -->
+    </div> -->
+    
+</body>
+</html>

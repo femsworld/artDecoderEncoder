@@ -1,4 +1,4 @@
-# art
+# art decoder/encoder console app
 
 Welcome to the Art Project repository! This project is a Go-based tool designed to encode and decode text using custom rules. The project includes multiple files for encoding, decoding, and multi-line operations.
 
@@ -63,3 +63,54 @@ To decode a single input string:
 ```bash
 go run . -m -e <input_file_location>
 ```
+
+
+
+# art encoder/decoder interface
+This application allows users to encode and decode text strings. It supports both single-line and multi-line processing for encoding and decoding operations. The application provides a web interface for manual input and a REST API for automated processing.
+
+## Features
+- **Encoding**: Compress text strings by encoding repeating characters.
+- **Decoding**: Decompress encoded strings back to their original form.
+- **Multi-Line Support**: Process multi-line inputs for encoding and decoding.
+- **HTTP Endpoints**: Includes an API for encoding and decoding operations.
+
+## Project Structure
+- `src/decoder.go`: Decodes encoded text strings.
+- `src/encoder.go`: Encodes text strings.
+- `src/multiline.go`: Handles multi-line processing for encoding and decoding operations.
+- `src/server.go`: Contains HTTP handlers and the web server initialization logic.
+- `src/main.go`: Entry point for the application; starts the HTTP server.
+- `src/decoderHandler.go`: Defines the HTTP endpoint for decoding encoded strings. It processes POST requests to decode strings and returns appropriate HTTP status codes for success (HTTP 202) or errors (HTTP 400).
+- `src/processHandler.go`: Handles form submissions from the web interface for both encoding and decoding. It processes POST requests, applies the desired encoding or decoding operation, and returns the result with the correct HTTP status codes.
+- `static/`: Contains static files such as CSS and HTML templates for the web interface.
+
+## Getting Started
+### Prerequisites
+- Go 1.16 or later.
+- A web browser to access the application.
+- A terminal or command line for API requests.
+
+### Installation
+1. Clone the repository to your local environment:
+   ```bash
+   git clone <repository_url>
+   cd <repository_folder>
+
+### To run the application
+1. cd <src>
+```bash
+go run *.go
+```
+#### To encode or decode a string
+1. Type or Paste your strings/texts into the textarea (Input Text box)
+2. Then from Mode, select Decode or Encode depending on what action you need to perform
+3. Then click process and it will take you to the process page, where it will display the result
+
+#### To encode or decode a multi-line string
+1. Type or Paste the location of your text file <file_location>
+2. Then from Mode, select Decode or Encode depending on what action you need to perform
+3. Then click process and it will take you to the process page, where it will display the result
+
+#### To stop the application
+Press ctrl+C from the terminal, and it will terminate the application.

@@ -1,51 +1,21 @@
 package main
 
 import (
-	"flag"
 	"fmt"
+	"log"
+	"net/http"
 )
 
 func main() {
-	// Define flags
-	flagHelp := flag.Bool("h", false, "Print Usage")
-	flagMulti := flag.Bool("m", false, "Multi-line")
-	flagEncode := flag.Bool("e", false, "Encoder")
-	flag.Parse()
+	// Register HTTP handlers
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static")))) // Serve static files
+	http.HandleFunc("/", indexHandler)                                                           // Main form handler
+	http.HandleFunc("/process", processHandler)                                                  // Processing form
 
-	args := flag.Args()
+	// Register the /decoder endpoint
+	http.HandleFunc("/decoder", decoderHandler) // Register the new decoder handler
 
-	if *flagHelp || len(args) != 1 {
-		fmt.Println("Decoder Usage: go run . \"[5 #][5 -_]-[5 #]\"")
-		fmt.Println("Multi-line Usage: go run . -m <inputfilelocation>")
-		fmt.Println("Encoder Usage: go run . -e <enter text>")
-		return
-	}
-
-	var (
-		output   string
-		err      error
-		prePrint string
-	)
-
-	switch {
-	case *flagEncode && *flagMulti:
-		output, err = Multiline(args[0], true)
-		prePrint = "Multiline encoded output:"
-	case *flagEncode:
-		output, err = Encoder(args[0])
-		prePrint = "Encoded output:"
-	case *flagMulti:
-		output, err = Multiline(args[0], false)
-		prePrint = "Multiline decoded output:"
-	default:
-		output, err = Decoder(args[0])
-		prePrint = "Decoded output:"
-	}
-
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
-
-	fmt.Println(prePrint, "\n"+output)
+	// Start the HTTP server
+	fmt.Println("Server is running at http://localhost:8080/")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
