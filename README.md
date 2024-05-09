@@ -83,6 +83,7 @@ This application allows users to encode and decode text strings. It supports bot
 - `src/main.go`: Entry point for the application; starts the HTTP server.
 - `src/decoderHandler.go`: Defines the HTTP endpoint for decoding encoded strings. It processes POST requests to decode strings and returns appropriate HTTP status codes for success (HTTP 202) or errors (HTTP 400).
 - `src/processHandler.go`: Handles form submissions from the web interface for both encoding and decoding. It processes POST requests, applies the desired encoding or decoding operation, and returns the result with the correct HTTP status codes.
+- `src/processRequest.go`: Contains a common function for processing encoding and decoding operations. This function is used by both `processHandler` and `decoderHandler`, providing consistent error handling and HTTP status code management.
 - `static/`: Contains static files such as CSS and HTML templates for the web interface.
 
 ## Getting Started
