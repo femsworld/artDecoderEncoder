@@ -36,8 +36,7 @@ func processRequest(w http.ResponseWriter, r *http.Request, mode string, isMulti
 
 	// Handle errors
 	if err != nil {
-		w.WriteHeader(http.StatusBadRequest) // Set HTTP 400 for errors
-		fmt.Fprintf(w, "Error processing request: %v", err)
+		http.Error(w, fmt.Sprintf("Error processing request: %v", err), http.StatusBadRequest)
 		return
 	}
 

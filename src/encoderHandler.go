@@ -4,7 +4,8 @@ import (
 	"net/http"
 )
 
-func decoderHandler(w http.ResponseWriter, r *http.Request) {
+// Handler for decoding operations
+func encoderHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 		return
@@ -13,6 +14,6 @@ func decoderHandler(w http.ResponseWriter, r *http.Request) {
 	// Determine if multi-line is selected
 	multi := r.FormValue("multi") == "true"
 
-	// Use the common function to handle decoding
-	processRequest(w, r, "decode", multi)
+	// Use the common function to handle encoding
+	processRequest(w, r, "encode", multi)
 }
