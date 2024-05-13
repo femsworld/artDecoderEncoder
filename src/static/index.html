@@ -3,7 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Encoder/Decoder WebApp</title>
-    <link rel="stylesheet" type="text/css" href="index.css"> <!-- Link to the CSS file -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6e6fa; 
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 75%;
+            border-radius: 0.5rem;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-row {
+            display: flex; /* Make this a flex container */
+            align-items: center; /* Align elements vertically to the center */
+            gap: 1rem; /* Space between elements */
+            border-top: 2rem;
+        }
+    </style>
 </head>
 <body>
     <h1>Encoder/Decoder WebApp</h1>
@@ -26,11 +64,6 @@
         </div>
     </form>
     
-    <!-- <h2>Output:</h2>
-    <div id="output"> <!-- Output area to display the result -->
-        <!-- This will be filled with the result after processing -->
-    </div> -->
-    
     <script>
         // Script to dynamically update form action based on selected mode
         const modeSelect = document.getElementById('mode');
@@ -48,6 +81,3 @@
     
 </body>
 </html>
-
-
-
