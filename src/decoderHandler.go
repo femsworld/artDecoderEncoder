@@ -1,18 +1,31 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 )
 
 func decoderHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
+		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
 	}
 
-	// Determine if multi-line is selected
+	input := r.FormValue("input")
 	multi := r.FormValue("multi") == "true"
 
-	// Use the common function to handle decoding
-	processRequest(w, r, "decode", multi)
+	var result string
+	var err error
+	if multi {
+		result, err = Multiline(input, false) // Multi-line decode
+	} else {
+		result, err = Decoder(input) // Single-line decode
+	}
+
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error processing request: %v", err), http.StatusBadRequest)
+		return
+	}
+
+	renderResult(w, "Decode Result", result)
 }
